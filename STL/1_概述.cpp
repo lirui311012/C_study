@@ -15,10 +15,15 @@ stack
 queue
 priority_queue
 3.关联容器
+#include <map>  -->map  multimap
+#include <set>  -->set  multiset
+#include <unordered_map>   -->unordered_map
+#include<unordered_set>   -->unordered_set
+
 无序关联容器 => 链式哈希表  增删查趋近O(1)
 set:集合 key   map:映射表 [key,value]
-unordered_set 单重集合
-unordered_multiset 多重集合
+unordered_set 单重集合   //单重就是允许key重复
+unordered_multiset 多重集合   //多重就是不允许key重复
 unordered_map 单重映射表
 unordered_multimap 多重映射表
 
