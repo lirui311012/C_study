@@ -76,4 +76,23 @@ reserve(20)：vector预留空间的   只给容器底层开辟指定大小的内
 resize(20)：容器扩容用的  不仅给容器底层开辟指定大小的内存空间，还会添加新的元素
 swap ： 两个容器进行元素交换
 
+
+//头文件包含介绍
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <list>
+#include <stack> // stack
+#include <queue> // queue和priority_queue
+#include <string>
+
+// 使用无序关联容器包含的头文件
+#include <unordered_set>
+#include <unordered_map>
+
+// 使用有序关联容器包含的头文件  红黑树
+#include <set> // set multiset
+#include <map> // map multimap
+using namespace std;
+
 */
