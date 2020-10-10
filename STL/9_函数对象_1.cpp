@@ -42,7 +42,6 @@ bool myless(T a, T b) {
 //compare比喻成C++库函数模板
 template<typename T,typename Compare>
 bool compare(T a, T b,Compare comp) {
-    //可以使用c语言的函数指针来解决这个问题，为什么还要使用函数对象？
 
 	//最重要的一个问题就是，通过函数指针调用函数，是没有办法内联的，
 	//效率很低，因为有函数调用开销(函数调用堆栈)
