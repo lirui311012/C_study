@@ -82,17 +82,15 @@ public:
 private:
 	int mb;
 };
-
-
-
 /*
-如果class A :public B
-那么B的内存布局就是
+对于上述代码-->
+如果class B :public A
+那么B类的对象的内存布局就是
 A::ma
 mb
 
-如果class A :virtual public B
-那么B的内存布局如下所示
+如果class B :virtual public A
+那么B类的对象的内存布局如下所示
 class B size(16):
 		+---
  0      | {vbptr}
