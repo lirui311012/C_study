@@ -17,6 +17,7 @@ class C : public A,public B
 抽象类：有纯虚函数的类
 虚基类定义在下面
 
+
 virtual:
 1.修饰成员方法，是虚函数
 2.可以修饰继承方式，是虚继承。被虚继承的类就是虚基类（虚基类的定义）
@@ -92,17 +93,27 @@ mb
 
 如果class A :virtual public B
 那么B的内存布局如下所示
-class B size (12)
-	+--------
-0	|{vbptr}        (virtual base ptr虚基类指针)
-4	|mb
-	+--------(virtual base A)虚基类
-8	|ma
-	+--------
+class B size(16):
+		+---
+ 0      | {vbptr}
+ 4      | mb
+		+---
+		+--- (virtual base A)
+ 8      | {vfptr}
+12      | ma
+		+---
 
 B::$vbtable@:
-0	|0
-1	|8(Bd(B+0)A)
+ 0      | 0
+ 1      | 8 (Bd(B+0)A)
+
+B::$vftable@:
+		| -8
+ 0      | &B::func
+
+B::func this adjustor: 8
+vbi:       class  offset o.vbptr  o.vbte fVtorDisp
+			   A       8       0       4 0
 
 虚基类的数据一定要搬到内存的最后，然后在前面添加一个vbptr指针
 vbptr就是指向vbtable虚基类表，一个类对应一个虚基类表
