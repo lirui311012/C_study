@@ -112,11 +112,11 @@ B::$vbtable@:
  1      | 8 (Bd(B+0)A)
 
 B::$vftable@:
-		| -8
+        | -8
  0      | &B::func
 
 B::func this adjustor: 8
-vbi:       class  offset o.vbptr  o.vbte fVtorDisp
+vbi:        class  offset o.vbptr  o.vbte fVtorDisp
 			   A       8       0       4 0
 
 虚基类的数据一定要搬到内存的最后，然后在前面添加一个vbptr指针
