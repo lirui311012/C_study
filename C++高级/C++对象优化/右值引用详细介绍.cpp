@@ -700,6 +700,6 @@ _NODISCARD constexpr _Ty&& forward(remove_reference_t<_Ty>&& _Arg) noexcept
 上面是C++库里面提供的两个forward重载函数，分别接收左值和右值引用类型，进行一个类型强转，(static_cast<_Ty&&>(_Arg))， 
 如果实参类型是int& + && -> int&就保持了实参的左值引用类型，如果实参类型是int&& + && -> int&&就保持了实参的右值引用类型。
 
-【总结】：std::move是获取实参的右值引用类型；std::forward是在代码实现过程中，保持实参的原有的引用类型（左引用或者右引用类型）。
+【总结】：std::move()是获取实参的右值引用类型；std::forward是在代码实现过程中，保持实参的原有的引用类型（左引用或者右引用类型）。
 */
 
