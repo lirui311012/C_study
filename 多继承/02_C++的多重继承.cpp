@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-
 /*
 c++的多重继承
 经典的问题就是--菱形继承的问题，半圆继承等
