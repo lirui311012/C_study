@@ -32,7 +32,7 @@ public:
 		{
 			//que不为空，生产者应该通知消费者去消费，消费完了，再继续生产
 			//生产者线程#1进入等待状态，并且#2把mtx互斥锁释放掉
-			cv.wait(lck);
+			cv.wait(lck);   //lck.lock()  , lck.unlock();
 		}
 		que.push(val);
 		
