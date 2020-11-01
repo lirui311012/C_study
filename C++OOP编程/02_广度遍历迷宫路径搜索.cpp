@@ -34,7 +34,7 @@ using namespace std;
 1 1 * * 1
 1 1 1 * *
 */
-#if 0
+#if 1
 // 定义方向
 const int RIGHT = 0;
 const int DOWN = 1;
