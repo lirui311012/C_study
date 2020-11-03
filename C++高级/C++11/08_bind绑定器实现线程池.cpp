@@ -3,16 +3,17 @@
 #include <string>
 #include <functional>
 #include <vector>
+#include <algorithm>
 #include <thread>  // C++11 thread
 using namespace std;
 using namespace placeholders;
 /*
 function类模板
-bind函数模板
+bind函数模板 可以自动推演模板类型参数
 */
 
 // C++11 bind绑定器 => 返回的结果还是一个函数对象
-#if 1
+#if 0
 void hello(string str) { cout << str << endl; }
 int sum(int a, int b) { return a + b; }
 class Test
@@ -29,7 +30,7 @@ int main()
 	cout << bind(sum, 10, 20)() << endl;
 	
 	// 对于C函数来说，函数名字前面加不加&都可以，C++的类内部成员函数，一定要取地址&Test::sum
-	cout << bind(&Test::sum, Test(), 20, 30)() << endl;
+	cout << bind(&Test::sum, Test(), 20, 30)() << endl;// 类内部成员函数需要绑定对象
 
 	// 存在的问题就是bind绑定器只能使用在当前语句中，你如果还想继续使用，必须重新写
 	// 为了将绑定器bind的类型留下来，就要将function和bind综合起来
@@ -91,6 +92,7 @@ public:
 	{
 		thread t(_func,_no); // 底层调用_func(_no);
 		return t; // 在主线程join等待子线程运行完毕
+		//return thread(_func, _no);
 	}
 private:
 	function<void(int)> _func;
@@ -118,7 +120,7 @@ public:
 		{
 			_pool.push_back(
 				new Thread(bind(&ThreadPool::runInThread, this, _1), i));
-			// 通过bind返回的绑定器，是一个没有返回值，但是需要一个int的参数
+			//通过bind返回的绑定器，是一个没有返回值，但是需要一个int的参数
 		}
 		for (int i = 0; i < size; ++i)
 		{
@@ -163,4 +165,62 @@ call runInThread! id:9
 call runInThread! id:4
 */
 
+#endif
+
+
+#if 1
+
+void show(vector<int>&vec)
+{
+	for (int val : vec)
+	{
+		cout << val << " ";
+	}
+	cout << endl;
+}
+
+// 测试一下STL，使用bind
+int main()
+{
+	vector<int> vec;
+	for (int i = 0; i < 20; i++) {
+		vec.push_back(rand() % 20 + 1);
+	}
+	// 2 8 15 1 10 5 19 19 3 5 6 6 2 8 2 12 16 3 8 17
+	show(vec);
+	sort(vec.begin(),vec.end());
+
+	// 1 2 2 2 3 3 5 5 6 6 8 8 8 10 12 15 16 17 19 19
+	show(vec);
+
+	// 在12后面添加一个13
+	auto it = find_if(vec.begin(),vec.end(),
+		[](int a)->bool
+	{
+		return a > 12;
+	});
+	vec.insert(it,13);
+	// 1 2 2 2 3 3 5 5 6 6 8 8 8 10 12 13 15 16 17 19 19
+	show(vec);
+
+	// 在13后面加一个14
+	it = find_if(vec.begin(), vec.end(),bind2nd(greater<int>(),13));
+	vec.insert(it, 14);
+	// 1 2 2 2 3 3 5 5 6 6 8 8 8 10 12 13 14 15 16 17 19 19
+	show(vec);
+
+	// 19后面添加一个20
+	it = find_if(vec.begin(),vec.end(), bind1st(less<int>(), 19));
+	vec.insert(it, 20);
+	// 1 2 2 2 3 3 5 5 6 6 8 8 8 10 12 13 14 15 16 17 19 19 20
+	show(vec);
+	return 0;
+}
+/*
+2 8 15 1 10 5 19 19 3 5 6 6 2 8 2 12 16 3 8 17
+1 2 2 2 3 3 5 5 6 6 8 8 8 10 12 15 16 17 19 19
+1 2 2 2 3 3 5 5 6 6 8 8 8 10 12 13 15 16 17 19 19
+1 2 2 2 3 3 5 5 6 6 8 8 8 10 12 13 14 15 16 17 19 19
+1 2 2 2 3 3 5 5 6 6 8 8 8 10 12 13 14 15 16 17 19 19 20
+*/
 #endif
