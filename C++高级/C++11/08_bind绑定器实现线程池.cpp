@@ -28,7 +28,7 @@ int main()
 	bind(hello, "hello bind!")();
 	cout << bind(sum, 10, 20)() << endl;
 	
-	// 对于C函数来说，函数名字前面加不加&都可以，C++的类内部函数，一定要取地址&Test::sum
+	// 对于C函数来说，函数名字前面加不加&都可以，C++的类内部成员函数，一定要取地址&Test::sum
 	cout << bind(&Test::sum, Test(), 20, 30)() << endl;
 
 	// 存在的问题就是bind绑定器只能使用在当前语句中，你如果还想继续使用，必须重新写
