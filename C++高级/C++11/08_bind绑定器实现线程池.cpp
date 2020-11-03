@@ -42,8 +42,13 @@ int main()
 	cout << bind(sum, _1, _2)(30, 80) << endl;
 
 	// 此处就把bind绑定器返回的binder复用起来了，将类型保留下来
+	//func1有参数占位符，所以调用必须传参一个
 	function<void(string)> func1 = bind(hello, _1);
+
+	//func2有两个参数占位符所以需要传参两个
 	function<int(int, int)> func2 = bind(sum, _1, _2);
+
+	//func3已经将参数全部绑定好，所以调用无需传参
 	function<void()> func3 = bind(hello, "hello world 666666666");
 
 	cout << "----function----" << endl;
@@ -74,7 +79,7 @@ hello world 666666666
 */
 #endif
 /////////////////////////////////////////////////////////
-#if 0
+#if 1
 
 // 类的成员方法不可以用做线程函数，但是可以通过bind绑定器做到
 // 类的成员方法和C函数不同之处是类的成员函数需要一个对象，我们把this绑定进去啦
@@ -168,7 +173,7 @@ call runInThread! id:4
 #endif
 
 
-#if 1
+#if 0
 
 void show(vector<int>&vec)
 {
